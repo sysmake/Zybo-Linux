@@ -38,8 +38,8 @@ Please check the wiki for some more detailed informations.
 
 ## History
 
-| Version   | Description                | Date      |
-|:---------:|:--------------------------:|:---------:|
-| 1.0       | Initial release            |           | 
-| 2.0       | Reworked and new release   |           |
+| Version   | Description                | Date       |
+|:---------:|:--------------------------:|:----------:|
+| 1.0       | Initial release            |            | 
+| 2.0       | Reworked and new release   | 08.12.2017 |
 
