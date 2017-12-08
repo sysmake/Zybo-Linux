@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+pkglibdir=@pkglibdir@
+
+Name: libdpkg
+Description: Debian package management system library
+Version: 1.17.4
+Libs: -L${libdir} -ldpkg
+Libs.private: -lz  -lbz2
+Cflags: -I${includedir}
