@@ -32,9 +32,8 @@ Please check the wiki for some more detailed informations.
   * u-boot : u-Boot from Xilinx. 
  	     Please take a look at [GitHub](https://github.com/Xilinx/u-boot-xlnx) for more informations.
   * Vivado : Vivado project for hardware configuration.
-  * PrepareSystem : Configuration script for the system to install all neccessary packets and setup yocto.
   * uEnv.txt : Settings for u-boot.
-  * PrepareSystem.sh : Use this script to setup the project to your system. It will install all necessary packages and environment variables.
+  * PrepareSystem.sh : Use this script to setup the project to your system. It will install all necessary packages and set the environment variables.
 
 ## History
 
