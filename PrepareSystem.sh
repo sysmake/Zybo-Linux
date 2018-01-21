@@ -35,14 +35,15 @@ elif [ $1 == "-compile" ]
 		sudo chmod +x u-boot/CompileUBoot.sh
 		sudo chmod +x Kernel/CompileKernel.sh
 		sudo chmod +x Boot/CompileBoot.sh
+elif [ $1 == "-yocto" ]
+	then
+		# Install Yocto
+		mkdir Yocto
+		cd Yocto
+		git clone -b dizzy git://git.yoctoproject.org/poky
+		cd poky
+		git clone -b dizzy git://git.yoctoproject.org/meta-xilinx
 fi
-
-# Install Yocto
-mkdir Yocto
-cd Yocto
-git clone -b dizzy git://git.yoctoproject.org/poky
-cd poky
-git clone -b dizzy git://git.yoctoproject.org/meta-xilinx
 
 export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8" 
