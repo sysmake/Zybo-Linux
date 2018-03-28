@@ -41,3 +41,5 @@ Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more 
 | 2.0       | Reworked and new release       | 08.12.2017 |
 | 2.1       | Fix some bugs with device tree | 08.03.2018 |
 
+## Maintainer
+- [Daniel Kampert](DanielKampert@kampis-elektroecke.de)
