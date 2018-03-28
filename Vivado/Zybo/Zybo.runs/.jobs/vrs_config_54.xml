@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<Runs Version="1" Minor="0">
-	<Run Id="Synth" LaunchDir="/home/daniel/Schreibtisch/Git/Zybo_Linux/Vivado/Zybo/Zybo.runs/Synth" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
-</Runs>
-
