@@ -1,7 +1,5 @@
 # Zybo-Linux
 
-Work in progress!
-
 ## What is this?
 This is a private repository with a full linux project for the Digilent Zybo Board. 
 In this repository you will find all neccessary files to compile and run a linux on your Zybo.
@@ -9,7 +7,7 @@ In this repository you will find all neccessary files to compile and run a linux
 Please check the wiki for some more detailed informations.
 
 ## Files in this repository
-  * build : Output directory for all generated files.
+  * build : Output directory for all generated files. This directory contains:
 
     | File               | Description                  |
     |:------------------:|:----------------------------:|
@@ -17,6 +15,7 @@ Please check the wiki for some more detailed informations.
     | devicetree.dtb     | Compiled device tree         |
     | BOOT.bin           | Compiled bitstream and FSBL  |
     | u-boot.elf         | Compiled u-boot bootloader   |
+    | uEnv.txt		 | Settings for u-boot          |
 
   * Boot : All files to generate the BOOT.bin file
   * DeviceTree : Complete device tree for the hardware and xilinx device tree Generator. 
@@ -32,8 +31,7 @@ Please check the wiki for some more detailed informations.
   * u-boot : u-Boot from Xilinx. 
  	     Please take a look at [GitHub](https://github.com/Xilinx/u-boot-xlnx) for more informations.
   * Vivado : Vivado project for hardware configuration.
-  * uEnv.txt : Settings for u-boot.
-  * PrepareSystem.sh : Use this script to setup the project to your system. It will install all necessary packages and set the environment variables.
+  * Build.sh : Use this script to setup your system or to create a new linux project.
 
 ## History
 
@@ -41,4 +39,6 @@ Please check the wiki for some more detailed informations.
 |:---------:|:--------------------------:|:----------:|
 | 1.0       | Initial release            |            | 
 | 2.0       | Reworked and new release   | 08.12.2017 |
+| 2.1       | Fix some bugs with device  | 08.03.2018 |
+|	    | tree		         |            |
 
