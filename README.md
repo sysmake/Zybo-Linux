@@ -24,8 +24,8 @@ Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more 
 	     Please take a look at [GitHub](https://github.com/Xilinx/linux-xlnx) for more informations.
   * Qemu : Qemu virtual machine with start script.
    	   Please  take a look at [GitHub](https://github.com/Xilinx/qemu) for more informations.
-  * rootfs : Filesystems for the linux
-  * SDCard : Copy of a working SD-Card with an example project.
+  * rootfs : Filesystems for the Zybo Linux
+  * SDCard : Copy of a working SD-Card as an example project.
   * SDK : Used SDK (including cross compiler) for the whole project.
   * Software : Some software examples.
   * u-boot : u-Boot from Xilinx. 
