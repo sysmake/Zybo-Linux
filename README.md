@@ -4,7 +4,7 @@
 This is a private repository with a full linux project for the Digilent Zybo Board. 
 In this repository you will find all neccessary files to compile and run a linux on your Zybo.
 
-Please check the wiki for some more detailed informations.
+Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more detailed informations.
 
 ## Files in this repository
   * build : Output directory for all generated files. This directory contains:
