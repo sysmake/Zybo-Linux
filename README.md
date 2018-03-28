@@ -35,10 +35,9 @@ Please check the wiki for some more detailed informations.
 
 ## History
 
-| Version   | Description                | Date       |
-|:---------:|:--------------------------:|:----------:|
-| 1.0       | Initial release            |            | 
-| 2.0       | Reworked and new release   | 08.12.2017 |
-| 2.1       | Fix some bugs with device  | 08.03.2018 |
-|	    | tree		         |            |
+| Version   | Description                    | Date       |
+|:---------:|:------------------------------:|:----------:|
+| 1.0       | Initial release                |            | 
+| 2.0       | Reworked and new release       | 08.12.2017 |
+| 2.1       | Fix some bugs with device tree | 08.03.2018 |
 
