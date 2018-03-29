@@ -108,7 +108,7 @@ elif [ $1 == "-yocto" ]
 			cd Yocto
 			git clone -b dizzy git://git.yoctoproject.org/poky
 			cd poky
-			git clone -b dizzy git://git.yoctoproject.org/meta-xilinx
+			git clone git://git.yoctoproject.org/meta-xilinx
 		fi
 fi
 
