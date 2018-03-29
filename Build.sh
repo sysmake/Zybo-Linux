@@ -9,6 +9,8 @@ export VIVADOVERSION=2016.4
 export CROSS_COMPILE=arm-xilinx-linux-gnueabi-
 ###########################
 
+export YOCTO_BRANCH=dizzy
+
 #### Colors #####
 Red="\033[0;31m"
 Green="\033[0;32m"
@@ -106,9 +108,9 @@ elif [ $1 == "-yocto" ]
 			echo -e ${Yellow}"Download yocto sources..."${Reset}
 			mkdir Yocto
 			cd Yocto
-			git clone -b dizzy git://git.yoctoproject.org/poky
+			git clone -b $YOCTO_BRANCH git://git.yoctoproject.org/poky
 			cd poky
-			git clone git://git.yoctoproject.org/meta-xilinx
+			git clone -b $YOCTO_BRANCH git://git.yoctoproject.org/meta-xilinx
 		fi
 fi
 
