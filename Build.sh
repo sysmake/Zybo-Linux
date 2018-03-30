@@ -4,9 +4,12 @@
 export BOOTLOADER=FSBL
 export DESIGNNAME=ProcessingSystem
 export PROJECTNAME=ZyboLinux
-export DEVICETREE=Bootargs.dts
+export DEVICETREE=Bootargs
+
 export VIVADOVERSION=2016.4
-export CROSS_COMPILE=arm-xilinx-linux-gnueabi-
+export VIVADO_PATH=/opt/Xilinx
+export CROSS_COMPILE=/home/daniel/Schreibtisch/Git/Zybo-Linux/SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-
+export TARGET_MACHINE=zedboard-zynq7
 ###########################
 
 #### Colors #####
@@ -29,9 +32,13 @@ export ARCH=arm
 export PATH=$PATH:$ZYBO_DIR/u-boot/u-boot-xlnx/tools
 
 # Source vivado settings
-source /opt/Xilinx/Vivado/$VIVADOVERSION/settings64.sh
+source $VIVADO_PATH/Vivado/$VIVADOVERSION/settings64.sh
 
-if [ $1 == "-install" ]
+if [ -z $1 ]
+	then
+		echo -e ${Green}"Usage: ${BASH_SOURCE[0]} -h"${Reset}
+
+elif [ $1 == "-install" ]
 	then
 		echo -e ${Yellow}"Install packages..."${Reset}
 		sudo apt-get update
@@ -49,6 +56,10 @@ if [ $1 == "-install" ]
 		sudo apt-get -y install openssh-server vim diffstat texinfo chrpath libsdl1.2-dev
 		sudo apt-get -y install lib32z1 lib32ncurses5 lib32bz2-1.0
 		sudo apt-get -y install libgmp3-dev libmpfr-dev libx11-6 libx11-dev libmpc-dev libncursesw5-dbg zlibc
+
+		echo -e ${Yellow}"Install python packages..."${Reset}
+		sudo pip install --user django==1.6
+		sudo pip install South==0.8.4
 
 		# Add run permissions to the scrips
 		sudo chmod +x Kernel/CompileKernel.sh
@@ -92,6 +103,13 @@ elif [ $1 == "-compile" ]
 		echo -e ${Yellow}"Generate boot file..."${Reset}
 		Boot/CompileBoot.sh
 
+elif [ $1 == "-devicetree" ]
+	then
+
+	echo -e ${Yellow}"Generate device tree..."${Reset}
+	$ZYBO_DIR/Kernel/linux-xlnx/scripts/dtc/dtc -I dts -O dtb -o $ZYBO_DIR/build/devicetree.dtb $ZYBO_DIR/Vivado/$PROJECTNAME/$PROJECTNAME.sdk/device_tree_bsp_0/${DEVICETREE}.dts
+
+
 elif [ $1 == "-example" ]
 	then
 		echo -e	 ${Yellow}"Copy example project to SD-Card..."${Reset}
@@ -103,16 +121,31 @@ elif [ $1 == "-yocto" ]
 		# Install Yocto
 		if [ -e Yocto ]
 		then
-			echo -e ${Yellow}"Download yocto sources..."${Reset}
+			echo -e ${Red}"Download yocto sources..."${Reset}
 			mkdir Yocto
 			cd Yocto
 			git clone -b dizzy git://git.yoctoproject.org/poky
 			cd poky
 			git clone -b dizzy git://git.yoctoproject.org/meta-xilinx
 		fi
+
+		# Change the config files
+		source oe-init-build-env
+
+		# Add additional layer
+		echo -e ${Yellow}"Add addtional layer..."${Reset}
+		sed -i "/meta-yocto-bsp/a \  $ZYBO_DIR/Yocto/poky/meta-xilinx \\\ " build/conf/bblayers.conf
+
+		# Setup target machine
+		echo -e ${Yellow}"Setup target machine..."${Reset}
+		sed -i "s/MACHINE ??= \"qemux86\"/MACHINE ?= \"${TARGET_MACHINE}\"/" build/conf/local.conf
+
+elif [ $1 == "-h" ]
+	then
+		echo -e ${Green}"Compile script for Zybo Linux"${Reset}
+		echo -e ${Yellow}"Basic options:"${Reset}
+		echo -e ${Yellow}"	-install	Prepare your system for linux compilation"${Reset}
+		echo -e ${Yellow}"	-compile	Compile a new linux project for Zybo. Please use '-install' at least one time before."${Reset}
+		echo -e ${Yellow}"	-devicetree	Compile a new device tree."${Reset}
+
 fi
-
-export LANG="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8" 
-export LC_NUMERIC="en_US.UTF-8"
-
