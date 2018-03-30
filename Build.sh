@@ -12,6 +12,8 @@ export CROSS_COMPILE=/home/daniel/Schreibtisch/Git/Zybo-Linux/SDK/x86_64-linux/u
 export TARGET_MACHINE=zedboard-zynq7
 ###########################
 
+export YOCTO_BRANCH=dizzy
+
 #### Colors #####
 Red="\033[0;31m"
 Green="\033[0;32m"
@@ -124,9 +126,9 @@ elif [ $1 == "-yocto" ]
 			echo -e ${Red}"Download yocto sources..."${Reset}
 			mkdir Yocto
 			cd Yocto
-			git clone -b dizzy git://git.yoctoproject.org/poky
+			git clone -b $YOCTO_BRANCH git://git.yoctoproject.org/poky
 			cd poky
-			git clone -b dizzy git://git.yoctoproject.org/meta-xilinx
+			git clone -b $YOCTO_BRANCH git://git.yoctoproject.org/meta-xilinx
 		fi
 
 		# Change the config files
