@@ -6,7 +6,7 @@ In this repository you will find all neccessary files to compile and run a linux
 
 Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more detailed informations.
 
-## Files in this repository
+## Project directory structure
   * build : Output directory for all generated files. This directory contains:
 
     | File               | Description                  |
@@ -31,6 +31,7 @@ Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more 
   * u-boot : u-Boot from Xilinx. 
  	     Please take a look at [GitHub](https://github.com/Xilinx/u-boot-xlnx) for more informations.
   * Vivado : Vivado project for hardware configuration.
+  * Yocto : Basic directory for a new yocto build
   * Build.sh : Use this script to setup your system or to create a new linux project.
 
 ## History
