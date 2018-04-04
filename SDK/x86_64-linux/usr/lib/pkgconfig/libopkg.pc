@@ -1,0 +1,11 @@
+prefix=/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libopkg
+Description: opkg package manager library
+Version: 0.2.2
+Libs: -L${libdir} -lopkg
+Cflags: -I${includedir}/libopkg
+

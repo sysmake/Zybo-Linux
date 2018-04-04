@@ -6,7 +6,7 @@ export DESIGNNAME=ProcessingSystem
 export PROJECTNAME=ZyboLinux
 export DEVICETREE=Bootargs
 
-export VIVADOVERSION=2016.4
+export VIVADOVERSION=2017.4
 export VIVADO_PATH=/opt/Xilinx
 export CROSS_COMPILE=/home/daniel/Schreibtisch/Git/Zybo-Linux/SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-
 export TARGET_MACHINE=zedboard-zynq7
@@ -44,12 +44,13 @@ elif [ $1 == "-install" ]
 	then
 		echo -e ${Yellow}"Install packages..."${Reset}
 		sudo apt-get update
-		sudo apt-get -y install build-essential automake libncurses5 libncursesw5 git libgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
-		sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 openjdk-7-jre gawk bison flex zlib1g-dev tofrodos libstdc++6:i386 libncurses5:i386 gcc
+		sudo apt-get -y install build-essential libncurses5 libncursesw5 git libgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
+		sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 openjdk-7-jre gawk tofrodos libstdc++6:i386 libncurses5:i386 gcc
 		sudo apt-get -y install libssl-dev device-tree-compiler
 		sudo apt-get -y install linux-kernel-headers kernel-package
 		sudo apt-get -y install make git-core ncurses-dev
-		sudo apt-get -y install gcc-arm*
+		sudo apt-get -y install gcc-arm*f
+		sudo apt-get -y install libglib2.0-dev libgcrypt20-dev zlib1g-dev autoconf automake libtool bison flex
 		sudo apt-get -y install linux-source
 		sudo apt-get -y install libncurses5-dev
 		sudo apt-get -y install libncursesw5-dev
@@ -69,7 +70,7 @@ elif [ $1 == "-install" ]
 		sudo chmod +x Boot/CompileBoot.sh
 
 		# Get the sources
-		echo -e ${Yellow}"Fetch sources from git..."${Reset}
+		echo -e ${Yellow}"Fetch xilinx sources from git..."${Reset}
 		cd Kernel
 		git clone https://github.com/Xilinx/linux-xlnx.git
 		cd ..
@@ -81,6 +82,20 @@ elif [ $1 == "-install" ]
 		cd DeviceTree
 		git clone https://github.com/Xilinx/device-tree-xlnx
 		cd ..
+
+		cd Qemu
+		git clone git://github.com/Xilinx/qemu.git
+		cd qemu
+		git submodule update --init dtc
+		./configure --target-list="aarch64-softmmu,microblazeel-softmmu" --enable-fdt --disable-kvm --disable-xen
+		make
+		cd ..
+
+		# Create build directory
+		if [ -e build ]
+		then	
+			mkdir build
+		fi
 
 elif [ $1 == "-compile" ]
 	then	
@@ -105,6 +120,9 @@ elif [ $1 == "-compile" ]
 		echo -e ${Yellow}"Generate boot file..."${Reset}
 		Boot/CompileBoot.sh
 
+elif [ $1 == "-qemu" ]
+	then
+		echo -e ${Yellow}"Run qemu..."${Reset}
 elif [ $1 == "-devicetree" ]
 	then
 

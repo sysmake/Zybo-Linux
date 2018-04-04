@@ -1,0 +1,76 @@
+diagnostic.o: \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic.c \
+ config.h auto-host.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/ansidecl.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/system.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/safe-ctype.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/filenames.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/hashtab.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/ansidecl.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/libiberty.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/hwint.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/coretypes.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/version.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/demangle.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/libiberty.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/input.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../libcpp/include/line-map.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/intl.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../libbacktrace/backtrace.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/pretty-print.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/obstack.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic-core.h \
+ bversion.h \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic.def \
+ /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic-color.h
+
+config.h:
+
+auto-host.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/ansidecl.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/system.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/safe-ctype.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/filenames.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/hashtab.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/ansidecl.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/libiberty.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/hwint.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/coretypes.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/version.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/demangle.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/libiberty.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/input.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../libcpp/include/line-map.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/intl.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../libbacktrace/backtrace.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/pretty-print.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/../include/obstack.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic-core.h:
+
+bversion.h:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic.def:
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/work-shared/gcc-4.9.1-r0/gcc-4.9.1/gcc/diagnostic-color.h:

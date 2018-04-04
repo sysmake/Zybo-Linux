@@ -1,0 +1,132 @@
+#!/bin/sh
+#
+# Script to make an offline /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive for debugging with libdwfl-based tools.
+#
+#	make-debug-/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive ARCHIVE {options}
+#	make-debug-/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive --kernel [--force] [RELEASE]
+#
+# Valid options /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-are those listed under 'Input selection options'
+# by running /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-unstrip --help.
+#
+# The /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive installed by --kernel be used automatically by -K.
+# An offline /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive can be used via -e in any tool that accepts those options.
+#
+
+UNSTRIP=${UNSTRIP:-/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-unstrip}
+AR=${AR:-@AR@}
+SUDO=${SUDO:-/usr/bin/sudo}
+
+LS=/bin/ls
+RM=/bin/rm
+MV=/bin/mv
+MKDIR=/bin/mkdir
+XARGS=/usr/bin/x/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-args
+
+outdir=${TMPDIR:-/tmp}/debug/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-ar$$
+
+usage()
+{
+  echo "Usage: $0 ARCHIVE {options}"
+  echo "   or: $0 --kernel [--sudo] [--force] [RELEASE]"
+  echo
+  echo "Valid options /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-are listed under 'Input selection options'"
+  echo "when running: $UNSTRIP --help"
+  echo
+  echo "The --kernel form updates the file used by -K if the"
+  echo "kernel installation has changed, or always with --force."
+  echo "With --sudo, touches the installed file via $SUDO."
+}
+
+fatal_usage()
+{
+  usage >&2
+  exit 2
+}
+
+script_version()
+{
+  echo "`basename $0` (elfutils) 0.158"
+  echo "Copyright (C) 2007 Red Hat, Inc."
+  echo "This is free softw/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-are; see the source for copying conditions."
+  echo "There is NO w/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-arranty; not even for MERCHANTABILITY or"
+  echo "FITNESS FOR A PARTICULAR PURPOSE."
+  echo "Written by Roland McGrath."
+}
+
+sudo=
+kernel=no
+force_kernel=no
+while [ $# -gt 0 ]; do
+  case "x$1" in
+  x--help) usage; exit 0 ;;
+  x--version) script_version; exit 0 ;;
+  x--kernel) kernel=yes ;;
+  x--force) force_kernel=yes ;;
+  x--sudo) sudo=$SUDO ;;
+  *) break ;;
+  esac
+  shift
+done
+
+if [ $kernel = no ] && [ $force_kernel = yes -o -n "$sudo" ]; then
+  usage
+fi
+
+if [ $kernel = yes ]; then
+  if [ $# -eq 0 ]; then
+    release=`uname -r`
+  elif [ $# -eq 1 ]; then
+    release=$1
+  else
+    fatal_usage
+  fi
+
+  dir=/usr/lib/debug/lib/modules/$release
+  /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive=$dir/debug.a
+  dep=/lib/modules/$release/modules.dep
+
+  if [ ! -d $dir ]; then
+    echo >&2 "$0: $dir not installed"
+    exit 1
+  fi
+
+  # Without --force, bail if the kernel installation is not newer.
+  # This file is normally touched by installing new kernels or modules.
+  if [ $force_kernel = no -a "$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" -nt "$dep" ]; then
+    exit 0
+  fi
+
+  # We have to kill the old one first, because our own -K would use it.
+  [ ! -e "$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" ] || $sudo $RM -f "$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" || exit
+
+  set "$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" "-K$release"
+fi
+
+if [ $# -lt 2 ]; then
+  fatal_usage
+fi
+
+/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive="$1"
+shift
+
+case "$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" in
+/*) ;;
+*) /home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive="`/bin/pwd`/$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" ;;
+esac
+
+if [ -z "$sudo" ]; then
+  new_/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive="$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive.new"
+else
+  new_/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive="$outdir.a"
+fi
+
+$RM -f "$new_/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" || exit
+
+trap '$RM -rf "$outdir" "$new_/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive"' 0 1 2 15
+
+$MKDIR "$outdir" &&
+$UNSTRIP -d "$outdir" -m -a -R "$@" &&
+(cd "$outdir" && $LS | $XARGS $AR cq "$new_/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive") &&
+$sudo $MV -f "$new_/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive" "$/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/bin/eu-archive"
+
+exit
