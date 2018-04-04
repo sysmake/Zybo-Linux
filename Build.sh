@@ -20,7 +20,18 @@ Red="\033[0;31m"
 Green="\033[0;32m"
 Reset="\033[0m"
 Yellow="\033[0;33m"
+Cyan="\033[0;36m"
 #################
+
+echo
+echo -e	${Cyan} "########################################################################"${Reset}
+echo -e	${Cyan} "# 			${Red}Zybo Linux Build script${Cyan}				#"${Reset}
+echo -e	${Cyan} "# Please visit 							#"${Reset}
+echo -e	${Cyan} "#   	-> ${Yellow}https://github.com/Kampi/Zybo-Linux/wiki${Cyan} 			#"${Reset}
+echo -e	${Cyan} "# for additional information, or write an e-mail to: 			#"${Reset}
+echo -e	${Cyan} "# 	-> ${Yellow}DanielKampert@kampis-elektroecke${Cyan}		            	#"${Reset}
+echo -e	${Cyan} "########################################################################"${Reset}
+echo
 
 # Bif file
 export ZYBO_BIF=Zybo.bif
