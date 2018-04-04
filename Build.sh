@@ -126,6 +126,7 @@ elif [ $1 == "-qemu" ]
 	then
 		echo -e ${Yellow}"Run qemu..."${Reset}
 		$ZYBO_DIR/Qemu/StartQemu.sh
+
 elif [ $1 == "-devicetree" ]
 	then
 
