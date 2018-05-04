@@ -5,7 +5,7 @@ export BOOTLOADER=FSBL
 export DESIGNNAME=ProcessingSystem
 export PROJECTNAME=ZyboLinux
 export DEVICETREE=Bootargs
-export QEMU_ROOTFS=arm_ramdisk.image.gz
+export RAMDISK_ROOTFS=arm_ramdisk.image.gz
 
 export VIVADOVERSION=2017.4
 export VIVADO_PATH=/opt/Xilinx
@@ -25,7 +25,7 @@ Cyan="\033[0;36m"
 
 echo
 echo -e	${Cyan} "########################################################################"${Reset}
-echo -e	${Cyan} "# 			${Red}Zybo Linux Build script${Cyan}				#"${Reset}
+echo -e	${Cyan} "# 			${Red}Zybo Linux build script${Cyan}				#"${Reset}
 echo -e	${Cyan} "# Please visit 							#"${Reset}
 echo -e	${Cyan} "#   	-> ${Yellow}https://github.com/Kampi/Zybo-Linux/wiki${Cyan} 			#"${Reset}
 echo -e	${Cyan} "# for additional information, or write an e-mail to: 			#"${Reset}
@@ -43,7 +43,7 @@ export ZYBO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export ARCH=arm
 
 # Add u-boot to path
-export PATH=$PATH:$ZYBO_DIR/u-boot/u-boot-xlnx/tools
+export PATH=$PATH:${ZYBO_DIR}/u-boot/u-boot-xlnx/tools
 
 # Source vivado settings
 source $VIVADO_PATH/Vivado/$VIVADOVERSION/settings64.sh
@@ -113,16 +113,16 @@ elif [ $1 == "-install" ]
 elif [ $1 == "-compile" ]
 	then	
 		# Create the bif file
-		if [ -e $ZYBO_BIF ]
+		if [ -e Boot/$ZYBO_BIF ]
 		then
-			echo -e ${Red}"Zybo.bif already exist! Please remove."${Reset}
+			echo -e ${Red}"Zybo.bif exist! Skip generating..."${Reset}
 		else
 			echo -e ${Yellow}"Create bif file..."${Reset}
-			echo "image : {" >> Boot/$ZYBO_BIF
-			echo "        [bootloader]$ZYBO_DIR/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/$BOOTLOADER/Debug/${BOOTLOADER}.elf" >> Boot/$ZYBO_BIF
-			echo "	$ZYBO_DIR/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/${DESIGNNAME}_wrapper_hw_platform_0/${DESIGNNAME}_wrapper.bit" >> Boot/$ZYBO_BIF
-			echo "	$ZYBO_DIR/build/u-boot.elf" >> Boot/$ZYBO_BIF
-			echo "}" >> Boot/$ZYBO_BIF
+			echo "image : {" >> Boot/${ZYBO_BIF}
+			echo "        [bootloader]${ZYBO_DIR}/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/$BOOTLOADER/Debug/${BOOTLOADER}.elf" >> Boot/${ZYBO_BIF}
+			echo "	${ZYBO_DIR}/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/${DESIGNNAME}_wrapper_hw_platform_0/${DESIGNNAME}_wrapper.bit" >> Boot/${ZYBO_BIF}
+			echo "	${ZYBO_DIR}/build/u-boot.elf" >> Boot/${ZYBO_BIF}
+			echo "}" >> Boot/${ZYBO_BIF}
 		fi
 
 		# Run the scrips
@@ -136,32 +136,82 @@ elif [ $1 == "-compile" ]
 elif [ $1 == "-qemu" ]
 	then
 		echo -e ${Yellow}"Run qemu..."${Reset}
-		$ZYBO_DIR/Qemu/StartQemu.sh
+		${ZYBO_DIR}/Qemu/StartQemu.sh
 
 elif [ $1 == "-devicetree" ]
 	then
 
-	echo -e ${Yellow}"Generate device tree..."${Reset}
-	$ZYBO_DIR/Kernel/linux-xlnx/scripts/dtc/dtc -I dts -O dtb -o $ZYBO_DIR/build/devicetree.dtb $ZYBO_DIR/Vivado/$PROJECTNAME/$PROJECTNAME.sdk/device_tree_bsp_0/${DEVICETREE}.dts
+		echo -e ${Yellow}"Generate device tree..."${Reset}
+		${ZYBO_DIR}/Kernel/linux-xlnx/scripts/dtc/dtc -I dts -O dtb -o ${ZYBO_DIR}/build/devicetree.dtb ${ZYBO_DIR}/Vivado/$PROJECTNAME/$PROJECTNAME.sdk/device_tree_bsp_0/${DEVICETREE}.dts
 
 
 elif [ $1 == "-example" ]
 	then
 		echo -e	 ${Yellow}"Copy example project to SD-Card..."${Reset}
-		cp SDCard/boot/* /media/$USER/boot/
-		cp -R SDCard/root/* /media/$USER/root/
+		cp SDCard/boot/* /media/${USER}/boot/
+		cp -R SDCard/root/* /media/${USER}/root/
+
+elif [ $1 == "-ramdisk" ]
+	then
+		echo -e	 ${Yellow}"Create ram disk example..."${Reset}
+
+		# Create the output folder
+		if [ ! -d "build/ramdisk" ]
+		then
+			mkdir build/ramdisk
+		fi
+
+		# Create the bif file
+		if [ -e build/ramdisk/$ZYBO_BIF ]
+		then
+			echo -e ${Red}"Zybo.bif exist! Skip generating..."${Reset}
+		else
+			echo -e ${Yellow}"Create bif file..."${Reset}
+			echo "image : {" >> build/ramdisk/${ZYBO_BIF}
+			echo "        [bootloader]${ZYBO_DIR}/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/$BOOTLOADER/Debug/${BOOTLOADER}.elf" >> build/ramdisk/${ZYBO_BIF}
+			echo "	${ZYBO_DIR}/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/${DESIGNNAME}_wrapper_hw_platform_0/${DESIGNNAME}_wrapper.bit" >> build/ramdisk/${ZYBO_BIF}
+			echo "	${ZYBO_DIR}/build/u-boot.elf" >> build/ramdisk/${ZYBO_BIF}
+			echo "	      [load=0x2a00000]devicetree.dtb" >> build/ramdisk/${ZYBO_BIF}
+			echo "	      [load=0x2000000]${RAMDISK_ROOTFS}" >> build/ramdisk/${ZYBO_BIF}
+			echo "	      [load=0x3000000]uImage.bin" >> build/ramdisk/${ZYBO_BIF}
+			echo "}" >> build/ramdisk/$ZYBO_BIF
+		fi
+
+		echo -e ${Yellow}"Compile u-boot..."${Reset}
+		u-boot/CompileUBoot.sh
+		echo -e ${Yellow}"Compile Kernel..."${Reset}
+		Kernel/CompileKernel.sh
+		echo -e ${Yellow}"Generate device tree..."${Reset}
+		${ZYBO_DIR}/Kernel/linux-xlnx/scripts/dtc/dtc -I dts -O dtb -o ${ZYBO_DIR}/build/ramdisk/devicetree.dtb ${ZYBO_DIR}/Vivado/$PROJECTNAME/$PROJECTNAME.sdk/device_tree_bsp_0/${DEVICETREE}.dts
+		
+		echo -e ${Yellow}"Copy files..."${Reset}
+		cp rootfs/${RAMDISK_ROOTFS} build/ramdisk/${RAMDISK_ROOTFS}
+		cp build/uImage build/ramdisk/uImage.bin
+		cp u-boot/uEnv.txt build/ramdisk/uEnv.txt
+
+		sed -i -e "s/kernel_image=uImage/kernel_image=uImage.bin/g" build/ramdisk/uEnv.txt
+		
+		cd build/ramdisk
+		echo -e ${Yellow}"Generate boot file..."${Reset}
+		bootgen -image Zybo.bif -o i BOOT.bin
+
+		cd ${ZYBO_DIR}
+
+		echo -e ${Yellow}"Copy files to SD-Card..."${Reset}
+		cp build/ramdisk/* /media/${USER}/boot/
+		rm /media/${USER}/boot/Zybo.bif
 
 elif [ $1 == "-yocto" ]
 	then
 		# Install Yocto
-		if [ -e Yocto ]
+		if [ -d "Yocto" ]
 		then
 			echo -e ${Red}"Download yocto sources..."${Reset}
 			mkdir Yocto
 			cd Yocto
-			git clone -b $YOCTO_BRANCH git://git.yoctoproject.org/poky
+			git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/poky
 			cd poky
-			git clone -b $YOCTO_BRANCH git://git.yoctoproject.org/meta-xilinx
+			git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/meta-xilinx
 		fi
 
 		# Change the config files
@@ -169,7 +219,7 @@ elif [ $1 == "-yocto" ]
 
 		# Add additional layer
 		echo -e ${Yellow}"Add addtional layer..."${Reset}
-		sed -i "/meta-yocto-bsp/a \  $ZYBO_DIR/Yocto/poky/meta-xilinx \\\ " build/conf/bblayers.conf
+		sed -i "/meta-yocto-bsp/a \  ${ZYBO_DIR}/Yocto/poky/meta-xilinx \\\ " build/conf/bblayers.conf
 
 		# Setup target machine
 		echo -e ${Yellow}"Setup target machine..."${Reset}
@@ -181,6 +231,10 @@ elif [ $1 == "-h" ]
 		echo -e ${Yellow}"Basic options:"${Reset}
 		echo -e ${Yellow}"	-install	Prepare your system for linux compilation"${Reset}
 		echo -e ${Yellow}"	-compile	Compile a new linux project for Zybo. Please use '-install' at least one time before."${Reset}
+		echo -e ${Yellow}"	-qemu		Run a qemu session to emulate the ZYNQ device."${Reset}
 		echo -e ${Yellow}"	-devicetree	Compile a new device tree."${Reset}
+		echo -e ${Yellow}"	-example	Copy a prebuild example to your SD-Card."${Reset}
+		echo -e ${Yellow}"	-ramdisk	Create and copy a ram disk example for your SD-Card."${Reset}
+		echo -e ${Yellow}"	-yocto		Setup a yocto build environment."${Reset}
 
 fi
