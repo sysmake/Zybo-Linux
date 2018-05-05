@@ -1,4 +1,4 @@
-obj-m += Hello_World.o
+obj-m += HelloWorld.o
 
 # Current dir
 PWD  := $(shell pwd)
