@@ -41,7 +41,7 @@ Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more 
 | 1.0       | Initial release                |            | 
 | 2.0       | Reworked and new release       | 08.12.2017 |
 | 2.1       | Fix some bugs with device tree | 08.03.2018 |
-| 2.2       | Add ram disk example with <br> working ethernet  | 5.05.2018 |
+| 2.2       | Add examples with <br> working ethernet  | 5.05.2018 |
 
 
 ## Maintainer
