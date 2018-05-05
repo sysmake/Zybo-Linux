@@ -1,1 +1,1 @@
-/sbin/swapon.util-linux
+/bin/busybox.nosuid

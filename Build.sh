@@ -162,36 +162,51 @@ elif [ $1 == "-ramdisk" ]
 elif [ $1 == "-yocto" ]
 	then
 		# Install Yocto
-		if [ -d "Yocto" ]
-		then
-			echo -e ${Red}"Download yocto sources..."${Reset}
-			mkdir Yocto
-			cd Yocto
-			git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/poky
-			cd poky
-			git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/meta-xilinx
+		if [ ! -d "Yocto" ]
+			then
+				echo -e ${Yellow}"Download yocto sources..."${Reset}
+				mkdir Yocto
+				cd Yocto
+				git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/poky
+				cd poky
+				git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/meta-xilinx
+		else
+			cd Yocto/poky
 		fi
 
 		# Change the config files
-		source oe-init-build-env
+		bash -c "source oe-init-build-env"
 
 		# Add additional layer
 		echo -e ${Yellow}"Add addtional layer..."${Reset}
-		sed -i "/meta-yocto-bsp/a \  ${ZYBO_DIR}/Yocto/poky/meta-xilinx \\\ " build/conf/bblayers.conf
+		if ! grep -q "${ZYBO_DIR}/Yocto/poky/meta-xilinx" build/conf/bblayers.conf
+			then
+				sed -i "/meta-yocto-bsp/a \  ${ZYBO_DIR}/Yocto/poky/meta-xilinx \\\ " build/conf/bblayers.conf
+		fi
 
 		# Setup target machine
 		echo -e ${Yellow}"Setup target machine..."${Reset}
-		sed -i "s/MACHINE ??= \"qemux86\"/MACHINE ?= \"${TARGET_MACHINE}\"/" build/conf/local.conf
+		if ! grep -q "MACHINE ?= 'zedboard-zynq7'" build/conf/local.conf
+			then
+				sed -i "s/MACHINE ??= \"qemux86\"/MACHINE ?= \"${TARGET_MACHINE}\"/" build/conf/local.conf
+		fi
+		
+		cd build
+
+		echo -e ${Yellow}"Starting hob build tool..."${Reset}
+		bash -c "hob"
+
+		cd ${ZYBO_DIR}
 
 elif [ $1 == "-h" ]
 	then
 		echo -e ${Green}"Compile script for Zybo Linux"${Reset}
 		echo -e ${Yellow}"Basic options:"${Reset}
-		echo -e ${Yellow}"	-install	Prepare your system for linux compilation"${Reset}
+		echo -e ${Yellow}"	-install	Prepare your system for linux compilation."${Reset}
 		echo -e ${Yellow}"	-compile	Compile a new linux project for Zybo. Please use '-install' at least one time before."${Reset}
 		echo -e ${Yellow}"	-qemu		Run a qemu session to emulate the ZYNQ device."${Reset}
 		echo -e ${Yellow}"	-devicetree	Compile a new device tree."${Reset}
 		echo -e ${Yellow}"	-example	Copy a prebuild example to your SD-Card."${Reset}
-		echo -e ${Yellow}"	-ramdisk	Create and copy a ram disk example for your SD-Card."${Reset}
-		echo -e ${Yellow}"	-yocto		Setup a yocto build environment."${Reset}
+		echo -e ${Yellow}"	-ramdisk	Copy a ram disk example to your SD-Card."${Reset}
+		echo -e ${Yellow}"	-yocto		Setup the yocto build environment."${Reset}
 fi

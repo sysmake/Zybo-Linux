@@ -1,3 +1,2 @@
 /usr/bin/strings
 /bin/busybox.nosuid 50
-/usr/bin/arm-poky-linux-gnueabi-strings 100

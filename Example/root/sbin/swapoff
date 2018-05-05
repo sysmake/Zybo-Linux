@@ -1,1 +1,1 @@
-/sbin/swapoff.util-linux
+/bin/busybox.nosuid

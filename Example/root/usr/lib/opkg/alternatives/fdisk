@@ -1,3 +1,2 @@
 /sbin/fdisk
 /bin/busybox.nosuid 50
-/sbin/fdisk.util-linux 100

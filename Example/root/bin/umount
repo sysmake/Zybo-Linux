@@ -1,1 +1,1 @@
-/bin/umount.util-linux
+/bin/busybox.nosuid

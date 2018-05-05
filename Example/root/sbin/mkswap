@@ -1,1 +1,1 @@
-/sbin/mkswap.util-linux
+/bin/busybox.nosuid

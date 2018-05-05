@@ -1,3 +1,2 @@
 /usr/bin/ar
 /bin/busybox.nosuid 50
-/usr/bin/arm-poky-linux-gnueabi-ar 100

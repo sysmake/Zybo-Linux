@@ -1,1 +1,1 @@
-/usr/bin/logger.util-linux
+/bin/busybox.nosuid
