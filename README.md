@@ -32,7 +32,7 @@ Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more 
  	     Please take a look at [GitHub](https://github.com/Xilinx/u-boot-xlnx) for more informations.
   * Vivado : Vivado project for hardware configuration.
   * Yocto : Basic directory for a new yocto build
-  * Build.sh : Use this script to setup your system or to create a new linux project.
+  * Build.sh : Use this script to set up your system or to create a new linux project.
 
 ## History
 
