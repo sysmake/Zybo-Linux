@@ -8,7 +8,7 @@
 #include <linux/miscdevice.h>
 #include <linux/platform_device.h>
 
-#define COMPATIBLE	"arm,cortex-a9"
+#define COMPATIBLE	"xlnx,zynq-7000"
 #define NAME		"Hello-World"
 
 static int __init LKM_Init(void);

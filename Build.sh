@@ -9,7 +9,7 @@ export RAMDISK_ROOTFS=arm_ramdisk.image.gz
 
 export VIVADOVERSION=2017.4
 export VIVADO_PATH=/opt/Xilinx
-export COMPILER=SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-
+export COMPILER=SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi
 export TARGET_MACHINE=zedboard-zynq7
 ###########################
 
@@ -31,9 +31,13 @@ export ZYBO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Export the architecture and the cross compiler
 export ARCH=arm
-export CROSS_COMPILE=${ZYBO_DIR}/${COMPILER}
+export CROSS_COMPILE=${ZYBO_DIR}/${COMPILER}-
 
-alias Zynq=${ZYBO_DIR}/${COMPILER}gcc
+# Add compiler to profile
+if ! grep -q "export Zynq_gcc=${CROSS_COMPILE}gcc" ~/.bashrc
+	then
+		echo "export Zynq_gcc=${CROSS_COMPILE}gcc" >> ~/.bashrc
+fi
 
 # Add u-boot to path
 export PATH=$PATH:${ZYBO_DIR}/u-boot/u-boot-xlnx/tools
@@ -152,6 +156,8 @@ if [ $# -eq 1 ]
 
 		elif [ $1 == "-yocto" ]
 			then
+				echo -e ${Red}"Under construction!"${Reset}
+			
 				# Install Yocto
 				if [ ! -d "Yocto" ]
 					then
@@ -181,13 +187,14 @@ if [ $# -eq 1 ]
 					then
 						sed -i "s/MACHINE ??= \"qemux86\"/MACHINE ?= \"${TARGET_MACHINE}\"/" build/conf/local.conf
 				fi
-		
+
+				# Add SDK options
+				if ! grep -q 'EXTRA_IMAGE_FEATURES = "tools-sdk tools-debug"' build/conf/local.conf
+					then
+						echo 'EXTRA_IMAGE_FEATURES = "tools-sdk tools-debug"' >> build/conf/local.conf
+				fi
+
 				cd build
-
-				echo -e ${Yellow}"Starting hob build tool..."${Reset}
-				bash -c "hob"
-
-				cd ${ZYBO_DIR}
 
 		elif [ $1 == "-h" ]
 			then

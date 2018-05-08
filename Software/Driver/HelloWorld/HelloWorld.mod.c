@@ -29,7 +29,7 @@ __used
 __attribute__((section(".modinfo"))) =
 "depends=";
 
-MODULE_ALIAS("of:NHello-WorldT*Carm,cortex-a9");
-MODULE_ALIAS("of:NHello-WorldT*Carm,cortex-a9C*");
+MODULE_ALIAS("of:NHello-WorldT*Cxlnx,zynq-7000");
+MODULE_ALIAS("of:NHello-WorldT*Cxlnx,zynq-7000C*");
 
-MODULE_INFO(srcversion, "E2FE444A50EA9DACC43FB83");
+MODULE_INFO(srcversion, "7029E8EAB8D3D52C513E86D");
