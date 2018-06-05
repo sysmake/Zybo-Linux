@@ -6,7 +6,7 @@ In this repository you will find all neccessary files to compile and run a linux
 
 Note: This project is already under construction!
 
-Please check the [wiki](https://github.com/Kampi/Zybo-Linux/wiki) for some more detailed informations.
+Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) for some more detailed informations.
 
 ## Project directory structure
   * build : Output directory for all generated files. This directory contains:
