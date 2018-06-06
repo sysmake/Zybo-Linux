@@ -25,8 +25,8 @@ MODULE_VERSION("1.0");
 
 // Module matching table
 static struct of_device_id MatchTable[] = {
-	{	.name = NAME, 	
-		.compatible = COMPATIBLE, 
+	{	.name = NAME,
+		.compatible = COMPATIBLE,
 	},
 	{}
 };
@@ -60,7 +60,7 @@ int __init LKM_Init(void)
 {
         int Status = platform_driver_probe(&Platform_driver, &Module_Probe);
 
-	if(Status != 0)
+	if(Status < 0)
 	{
 		printk(KERN_ALERT "Platform driver probe failed!\n");
 		printk(KERN_ALERT "Status: %d\n", Status);

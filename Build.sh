@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ##### Project settings ####
+export KERNEL_VERSION=4.14
 export BOOTLOADER=FSBL
 export DESIGNNAME=ProcessingSystem
 export PROJECTNAME=ZyboLinux
@@ -13,7 +14,7 @@ export COMPILER=SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-g
 export TARGET_MACHINE=zedboard-zynq7
 ###########################
 
-export YOCTO_BRANCH=dizzy
+export YOCTO_BRANCH=morty
 
 #### Colors #####
 Red="\033[0;31m"
@@ -33,10 +34,18 @@ export ZYBO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export ARCH=arm
 export CROSS_COMPILE=${ZYBO_DIR}/${COMPILER}-
 
-# Add compiler to profile
+# Add compiler to bashrc
 if ! grep -q "export Zynq_gcc=${CROSS_COMPILE}gcc" ~/.bashrc
 	then
+		echo -e ${Yellow}"Add cross compiler path to '.bashrc'..."${Reset}
 		echo "export Zynq_gcc=${CROSS_COMPILE}gcc" >> ~/.bashrc
+fi
+
+# Add kernel directory to bashrc
+if ! grep -q "export Zynq_kernel=${ZYBO_DIR}/Kernel/linux-xlnx" ~/.bashrc
+	then
+		echo -e ${Yellow}"Add kernel path to '.bashrc'..."${Reset}
+		echo "export Zynq_kernel=${ZYBO_DIR}/Kernel/linux-xlnx" >> ~/.bashrc
 fi
 
 # Add u-boot to path
@@ -108,7 +117,7 @@ if [ $# -eq 1 ]
 		elif [ $1 == "-compile" ]
 			then	
 				# Create the bif file
-				if [ -e Boot/$ZYBO_BIF ]
+				if [ -e Boot/${ZYBO_BIF} ]
 				then
 					echo -e ${Red}"Zybo.bif exist! Skip generating..."${Reset}
 				else
@@ -138,10 +147,13 @@ if [ $# -eq 1 ]
 
 				echo -e ${Yellow}"Generate device tree..."${Reset}
 				${ZYBO_DIR}/Kernel/linux-xlnx/scripts/dtc/dtc -I dts -O dtb -o ${ZYBO_DIR}/build/devicetree.dtb ${ZYBO_DIR}/Vivado/$PROJECTNAME/$PROJECTNAME.sdk/device_tree_bsp_0/${DEVICETREE}.dts
-
-
+		elif [ $1 == "-kernel" ]
+			then
+				echo -e ${Yellow}"Compile Kernel..."${Reset}
+				Kernel/CompileKernel.sh
 		elif [ $1 == "-example" ]
 			then
+				echo -e	 ${Red}"rootfs not up to date!"${Reset}
 				echo -e	 ${Yellow}"Copy example project to SD-Card..."${Reset}
 				cp Example/boot/* /media/${USER}/boot/
 				cp -R Example/root/* /media/${USER}/root/
@@ -152,7 +164,11 @@ if [ $# -eq 1 ]
 
 				# Copy all files to sd-card and remove bif file
 				cp Example/ramdisk/* /media/${USER}/boot/
-				rm /media/${USER}/boot/Zybo.bif
+
+				if [ -e /media/${USER}/boot/${ZYBO_BIF} ]
+					then
+					rm /media/${USER}/boot/${ZYBO_BIF}
+				fi
 
 		elif [ $1 == "-yocto" ]
 			then
@@ -164,15 +180,26 @@ if [ $# -eq 1 ]
 						echo -e ${Yellow}"Download yocto sources..."${Reset}
 						mkdir Yocto
 						cd Yocto
-						git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/poky
+						git clone git://git.yoctoproject.org/poky
 						cd poky
-						git clone -b ${YOCTO_BRANCH} git://git.yoctoproject.org/meta-xilinx
+						git checkout ${YOCTO_BRANCH}
+						
+						echo -e ${Yellow}"Download xilinx meta..."${Reset}
+						git clone https://github.com/Xilinx/meta-xilinx.git
+						cd meta-xilinx
+						git checkout ${YOCTO_BRANCH}
+						cd ..
+
 				else
 					cd Yocto/poky
 				fi
 
 				# Change the config files
 				bash -c "source oe-init-build-env"
+
+				# Copy the recipes to recipe directory of yocto
+				echo -e ${Yellow}"Copy recipes..."${Reset}
+				cp ${ZYBO_DIR}/Yocto/recipe/* ${ZYBO_DIR}/Yocto/poky/meta/recipes-extended/images
 
 				# Add additional layer
 				echo -e ${Yellow}"Add addtional layer..."${Reset}
@@ -214,6 +241,7 @@ if [ $# -eq 1 ]
 				echo -e ${Yellow}"	-compile	Compile a new linux project for Zybo. Please use '-install' at least one time before."${Reset}
 				echo -e ${Yellow}"	-qemu		Run a qemu session to emulate the ZYNQ device."${Reset}
 				echo -e ${Yellow}"	-devicetree	Compile a new device tree."${Reset}
+				echo -e ${Yellow}"	-kernel		Compile a new linux kernel."${Reset}
 				echo -e ${Yellow}"	-example	Copy a prebuild example to your SD-Card."${Reset}
 				echo -e ${Yellow}"	-ramdisk	Copy a ram disk example to your SD-Card."${Reset}
 				echo -e ${Yellow}"	-yocto		Setup the yocto build environment."${Reset}

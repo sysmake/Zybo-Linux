@@ -32,4 +32,4 @@ __attribute__((section(".modinfo"))) =
 MODULE_ALIAS("of:NHello-WorldT*Cxlnx,zynq-7000");
 MODULE_ALIAS("of:NHello-WorldT*Cxlnx,zynq-7000C*");
 
-MODULE_INFO(srcversion, "7029E8EAB8D3D52C513E86D");
+MODULE_INFO(srcversion, "274E8A823E8647C50F5DCA4");

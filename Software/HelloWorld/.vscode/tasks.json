@@ -2,11 +2,19 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compile",
+            "label": "build",
             "type": "shell",
             "linux": {
                 "command": "${Zynq_gcc} ${file} -o ${fileBasenameNoExtension}"
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "Transfer",
+            "type": "shell",
+            "linux": {
+                "command": "scp ${fileBasenameNoExtension} root@192.168.178.150:/home/root"
+            }
         }
     ]
 }
