@@ -8,7 +8,7 @@ export PROJECTNAME=ZyboLinux
 export DEVICETREE=Bootargs
 export RAMDISK_ROOTFS=arm_ramdisk.image.gz
 
-export VIVADOVERSION=2017.4
+export VIVADOVERSION=2018.2
 export VIVADO_PATH=/opt/Xilinx
 export COMPILER=SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi
 export TARGET_MACHINE=zedboard-zynq7
@@ -61,11 +61,10 @@ if [ $# -eq 1 ]
 				echo -e ${Yellow}"Install packages..."${Reset}
 				sudo apt-get update
 				sudo apt-get -y install build-essential libncurses5 libncursesw5 git libgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
-				sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 openjdk-7-jre gawk tofrodos libstdc++6:i386 libncurses5:i386 gcc
+				sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 openjdk-7-jre gawk tofrodos libstdc++6:i386 libncurses5:i386
 				sudo apt-get -y install libssl-dev device-tree-compiler
 				sudo apt-get -y install linux-kernel-headers kernel-package
 				sudo apt-get -y install make git-core ncurses-dev
-				sudo apt-get -y install gcc-arm*f
 				sudo apt-get -y install libglib2.0-dev libgcrypt20-dev zlib1g-dev autoconf automake libtool bison flex
 				sudo apt-get -y install linux-source
 				sudo apt-get -y install libncurses5-dev
@@ -75,6 +74,13 @@ if [ $# -eq 1 ]
 				sudo apt-get -y install openssh-server vim diffstat texinfo chrpath libsdl1.2-dev
 				sudo apt-get -y install lib32z1 lib32ncurses5 lib32bz2-1.0
 				sudo apt-get -y install libgmp3-dev libmpfr-dev libx11-6 libx11-dev libmpc-dev libncursesw5-dbg zlibc
+
+				# Install GCC 6
+				sudo apt-get install software-properties-common -y && \
+				sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
+				sudo apt-get update && \
+				sudo apt-get install gcc-6 g++-6 -y && \
+				sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6 && \
 
 				echo -e ${Yellow}"Install python packages..."${Reset}
 				sudo pip install --user django==1.6
@@ -108,14 +114,14 @@ if [ $# -eq 1 ]
 				make
 				cd ${ZYBO_DIR}
 
+		elif [ $1 == "-compile" ]
+			then	
 				# Create build directory
-				if [ -e build ]
+				if [ ! -d build ]
 				then	
 					mkdir build
 				fi
 
-		elif [ $1 == "-compile" ]
-			then	
 				# Create the bif file
 				if [ -e Boot/${ZYBO_BIF} ]
 				then
