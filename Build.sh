@@ -1,20 +1,46 @@
+#
+# Build.sh.h
+#
+#  Copyright (C) Daniel Kampert, 2018
+#	Website: www.kampis-elektroecke.de
+#  File info: Build script for Zybo Linux project
+#
+# GNU GENERAL PUBLIC LICENSE:
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# Errors and omissions should be reported to DanielKampert@kampis-elektroecke.de
+# 
+
 #!/bin/bash
 
 ##### Project settings ####
-export KERNEL_VERSION=4.14
+export VER_VIVADO=2018.2
+export VER_KERNEL=4.14
+export VER_UBOOT=xilinx-v2017.4
+
 export BOOTLOADER=FSBL
 export DESIGNNAME=ProcessingSystem
 export PROJECTNAME=ZyboLinux
 export DEVICETREE=Bootargs
 export RAMDISK_ROOTFS=arm_ramdisk.image.gz
-
-export VIVADOVERSION=2018.2
-export VIVADO_PATH=/opt/Xilinx
-export COMPILER=SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi
 export TARGET_MACHINE=zedboard-zynq7
-###########################
-
 export YOCTO_BRANCH=morty
+export ZYBO_BIF=Zybo.bif
+
+export PATH_VIVADO=/opt/Xilinx
+export PATH_COMPILER=SDK/x86_64-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi
+###########################
 
 #### Colors #####
 Red="\033[0;31m"
@@ -24,15 +50,12 @@ Yellow="\033[0;33m"
 Cyan="\033[0;36m"
 #################
 
-# Bif file
-export ZYBO_BIF=Zybo.bif
-
 # Current dir
 export ZYBO_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Export the architecture and the cross compiler
 export ARCH=arm
-export CROSS_COMPILE=${ZYBO_DIR}/${COMPILER}-
+export CROSS_COMPILE=${ZYBO_DIR}/${PATH_COMPILER}-
 
 # Add compiler to bashrc
 if ! grep -q "export Zynq_gcc=${CROSS_COMPILE}gcc" ~/.bashrc
@@ -52,7 +75,7 @@ fi
 export PATH=$PATH:${ZYBO_DIR}/u-boot/u-boot-xlnx/tools
 
 # Source vivado settings
-bash -c "source $VIVADO_PATH/Vivado/$VIVADOVERSION/settings64.sh"
+bash -c "source $PATH_VIVADO/Vivado/$VER_VIVADO/settings64.sh"
 
 if [ $# -eq 1 ] 
 	then
@@ -60,27 +83,19 @@ if [ $# -eq 1 ]
 			then
 				echo -e ${Yellow}"Install packages..."${Reset}
 				sudo apt-get update
-				sudo apt-get -y install build-essential libncurses5 libncursesw5 git libgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
-				sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 openjdk-7-jre gawk tofrodos libstdc++6:i386 libncurses5:i386
-				sudo apt-get -y install libssl-dev device-tree-compiler
-				sudo apt-get -y install linux-kernel-headers kernel-package
-				sudo apt-get -y install make git-core ncurses-dev
-				sudo apt-get -y install libglib2.0-dev libgcrypt20-dev zlib1g-dev autoconf automake libtool bison flex
-				sudo apt-get -y install linux-source
-				sudo apt-get -y install libncurses5-dev
-				sudo apt-get -y install libncursesw5-dev
-				sudo apt-get -y install libncurses5-dbg
-				sudo apt-get -y install u-boot-tools lzop
-				sudo apt-get -y install openssh-server vim diffstat texinfo chrpath libsdl1.2-dev
-				sudo apt-get -y install lib32z1 lib32ncurses5 lib32bz2-1.0
-				sudo apt-get -y install libgmp3-dev libmpfr-dev libx11-6 libx11-dev libmpc-dev libncursesw5-dbg zlibc
+				sudo apt-get -y install openjdk-7-jre make git-core openssh-server git autoconf automake libtool python-pip
+				sudo apt-get -y install linux-source linux-kernel-headers kernel-package u-boot-tools device-tree-compiler build-essential ncurses-dev
+				sudo apt-get -y install libncursesw5 libncurses5 libncursesw5-dev libncursesw5-dbg libncurses5-dbg libncurses5-dev libncurses5:i386
+				sudo apt-get -y install libsdl1.2-dev lib32z1 lib32ncurses5 lib32bz2-1.0 libssl-devlibgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
+				sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 libstdc++6:i386 libglib2.0-dev libgcrypt20-dev zlib1g-dev
+				sudo apt-get -y install libgmp3-dev libmpfr-dev libx11-6 libx11-dev libmpc-dev zlibc
 
 				# Install GCC 6
-				sudo apt-get install software-properties-common -y && \
-				sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
-				sudo apt-get update && \
-				sudo apt-get install gcc-6 g++-6 -y && \
-				sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6 && \
+				sudo apt-get -y install software-properties-common
+				sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+				sudo apt-get update
+				sudo apt-get -y install gcc-6 g++-6
+				sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
 
 				echo -e ${Yellow}"Install python packages..."${Reset}
 				sudo pip install --user django==1.6
@@ -96,15 +111,18 @@ if [ $# -eq 1 ]
 				echo -e ${Yellow}"Fetch xilinx sources from git..."${Reset}
 				cd Kernel
 				git clone https://github.com/Xilinx/linux-xlnx.git
-				cd ..
+				cd ${ZYBO_DIR}
 
 				cd u-boot
 				git clone https://github.com/Xilinx/u-boot-xlnx.git
-				cd ..
+				cd u-boot-xlnx
+				git fetch && git fetch --tags
+				git checkout ${VER_UBOOT}
+				cd ${ZYBO_DIR}
 
 				cd DeviceTree
 				git clone https://github.com/Xilinx/device-tree-xlnx
-				cd ..
+				cd ${ZYBO_DIR}
 
 				cd Qemu
 				git clone git://github.com/Xilinx/qemu.git

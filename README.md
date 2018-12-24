@@ -21,9 +21,9 @@ Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) for some
 
 ## Supported versions
 
-- Ubuntu 16.04 LTS
-- u-boot 2017.1
-- Kernel 4.14
+- OS	 	: 16.04 LTS
+- u-boot 	: 2017.1
+- Linux kernel 	: 4.14
 
 ## Project directory structure
 
