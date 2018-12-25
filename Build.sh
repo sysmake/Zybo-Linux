@@ -83,11 +83,11 @@ if [ $# -eq 1 ]
 			then
 				echo -e ${Yellow}"Install packages..."${Reset}
 				sudo apt-get update
-				sudo apt-get -y install openjdk-7-jre make git-core openssh-server git autoconf automake libtool python-pip
+				sudo apt-get -y install openjdk-7-jre make git-core openssh-server git autoconf automake libtool python-pip gawk chrpath texinfo
 				sudo apt-get -y install linux-source linux-kernel-headers kernel-package u-boot-tools device-tree-compiler build-essential ncurses-dev
 				sudo apt-get -y install libncursesw5 libncurses5 libncursesw5-dev libncursesw5-dbg libncurses5-dbg libncurses5-dev libncurses5:i386
 				sudo apt-get -y install libsdl1.2-dev lib32z1 lib32ncurses5 lib32bz2-1.0 libssl-devlibgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
-				sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 libstdc++6:i386 libglib2.0-dev libgcrypt20-dev zlib1g-dev
+				sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 libstdc++6:i386 libglib2.0-dev libgcrypt20-dev libpixman-1-dev zlib1g-dev
 				sudo apt-get -y install libgmp3-dev libmpfr-dev libx11-6 libx11-dev libmpc-dev zlibc
 
 				# Install GCC 6
@@ -213,31 +213,14 @@ if [ $# -eq 1 ]
 						cd meta-xilinx
 						git checkout ${YOCTO_BRANCH}
 						cd ..
-
 				else
 					cd Yocto/poky
 				fi
 
-				# Change the config files
-				bash -c "source oe-init-build-env"
+				# Config yocto
+				source oe-init-build-env
+				bitbake-layers add-layer "${ZYBO_DIR}/Yocto/poky/meta-xilinx"
 
-				# Copy the recipes to recipe directory of yocto
-				echo -e ${Yellow}"Copy recipes..."${Reset}
-				cp ${ZYBO_DIR}/Yocto/recipe/* ${ZYBO_DIR}/Yocto/poky/meta/recipes-extended/images
-
-				# Add additional layer
-				echo -e ${Yellow}"Add addtional layer..."${Reset}
-				if ! grep -q "${ZYBO_DIR}/Yocto/poky/meta-xilinx" build/conf/bblayers.conf
-					then
-						sed -i "/meta-yocto-bsp/a \  ${ZYBO_DIR}/Yocto/poky/meta-xilinx \\\ " build/conf/bblayers.conf
-				fi
-
-				# Setup target machine
-				echo -e ${Yellow}"Setup target machine..."${Reset}
-				if ! grep -q "MACHINE ?= 'zedboard-zynq7'" build/conf/local.conf
-					then
-						sed -i "s/MACHINE ??= \"qemux86\"/MACHINE ?= \"${TARGET_MACHINE}\"/" build/conf/local.conf
-				fi
 
 				# Add SDK options
 				if ! grep -q 'EXTRA_IMAGE_FEATURES = "tools-sdk tools-debug"' build/conf/local.conf
