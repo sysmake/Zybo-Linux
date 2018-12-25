@@ -41,14 +41,14 @@ Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) for some
 - DeviceTree : Complete device tree for the hardware and xilinx device tree Generator. Please take a look at [GitHub](https://github.com/Xilinx/device-tree-xlnx) for more informations.
 - Kernel : Linux kernel from Xilinx. Please take a look at [GitHub](https://github.com/Xilinx/linux-xlnx) for more informations.
 - Qemu : Qemu virtual machine with start script. Please take a look at [GitHub](https://github.com/Xilinx/qemu) for more informations.
-- rootfs : Filesystems for the Zybo Linux
+- rootfs : File systems for the Zybo Linux
 - Example : Some example projects.
-- SDK : Used SDK (including cross compiler) for the whole project.
+- SDK : SDK (including cross compiler) for the whole project.
 - Software : Some software examples.
 - u-boot : u-Boot from Xilinx. Please take a look at [GitHub](https://github.com/Xilinx/u-boot-xlnx) for more informations.
-- Vivado : Vivado project for hardware configuration.
+- Vivado : Vivado project with hardware configuration.
 - Yocto : Basic directory for a new yocto build
-- Build.sh : Use this script to set up your system or to create a new linux project.
+- Project.sh : Use this script to handle the project easily.
 
 ## History
 
