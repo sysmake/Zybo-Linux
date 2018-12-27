@@ -1,4 +1,4 @@
-EXECUTABLE	= HelloWorld
+EXECUTABLE	= <>
 
 ARCH		= arm
 TYPE		= armv7-a
