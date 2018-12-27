@@ -23,9 +23,10 @@ Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) or write
 
 | **Software** | **Version** |
 |-------------------|----------------------------|
+| Ubuntu | 16.04 LTS |
 | Linux kernel | 4.6.0-xilinx-v2016.3 |
-| u-boot | 2017.1 |
-| Linux kernel | 4.14 |
+| u-boot | xilinx-v2017.4 |
+| Device tree | xilinx-v2018.3 |
 | Vivado | 2018.2 |
 
 ## Project directory structure
