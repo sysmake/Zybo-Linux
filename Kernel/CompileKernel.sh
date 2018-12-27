@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ${ZYBO_DIR}/Kernel/linux-xlnx
+cd ${DIR_RPOJECT}/Kernel/linux-xlnx
 
 make ARCH=${ARCH} distclean
 make ARCH=${ARCH} xilinx_zynq_defconfig
@@ -13,4 +13,4 @@ make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} UIMAGE_LOADADDR=0x8000 uImage
 cp arch/arm/boot/uImage ../../build/uImage
 
 # Change to current directory
-cd ${ZYBO_DIR}
+cd ${DIR_RPOJECT}

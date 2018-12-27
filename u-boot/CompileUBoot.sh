@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ${ZYBO_DIR}/u-boot/u-boot-xlnx
+cd ${DIR_RPOJECT}/u-boot/u-boot-xlnx
 
 make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} zynq_zybo_config
 make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE}
@@ -9,4 +9,4 @@ make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE}
 cp u-boot ../../build/u-boot.elf
 cp ../uEnv.txt ../../build/uEnv.txt
 
-cd ${ZYBO_DIR}
+cd ${DIR_RPOJECT}

@@ -1,7 +1,0 @@
-#! /bin/sh
-
-PKG_CONFIG_PATH="/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/lib/pkgconfig:/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/share/pkgconfig"
-PKG_CONFIG_LIBDIR="/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/lib/pkgconfig"
-unset PKG_CONFIG_SYSROOT_DIR
-
-pkg-config "$@"

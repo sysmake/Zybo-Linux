@@ -1,8 +1,3 @@
-## This file is a general .xdc for the ZYBO Rev B board
-## To use it in a project:
-## - uncomment the lines corresponding to used pins
-## - rename the used signals according to the project
-
 ##Clock signal
 ##IO_L11P_T1_SRCC_35	
 #set_property PACKAGE_PIN L16 [get_ports clk]

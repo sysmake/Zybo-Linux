@@ -1,4 +1,0 @@
-#!/bin/bash
-realpath=`readlink -fn $0`
-export OPENSSL_CONF=/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/lib/ssl/openssl.cnf SSL_CERT_DIR=/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/lib/ssl/certs SSL_CERT_FILE=/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/lib/ssl/cert.pem OPENSSL_ENGINES=/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/usr/lib/ssl/engines
-exec -a `dirname $realpath`/openssl `dirname $realpath`/openssl.real "$@"

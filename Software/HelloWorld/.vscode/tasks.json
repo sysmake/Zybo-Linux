@@ -5,7 +5,7 @@
             "label": "build",
             "type": "shell",
             "linux": {
-                "command": "${Zynq_gcc} ${file} -o ${fileBasenameNoExtension}"
+                "command": "make"
             },
             "problemMatcher": []
         },

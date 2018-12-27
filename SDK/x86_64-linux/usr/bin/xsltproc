@@ -1,4 +1,0 @@
-#!/bin/bash
-realpath=`readlink -fn $0`
-export XML_CATALOG_FILES=/home/daniel/Schreibtisch/Git/Zybo-Linux/Yocto/poky/build/tmp/sysroots/x86_64-linux/etc/xml/catalog.xml
-exec -a `dirname $realpath`/xsltproc `dirname $realpath`/xsltproc.real "$@"
