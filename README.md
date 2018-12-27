@@ -21,7 +21,7 @@ Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) or write
 
 ## Supported Versions
 
-| Software | Version|
+| **Software** | **Version** |
 |-------------------|----------------------------|
 | Linux kernel | 4.6.0-xilinx-v2016.3 |
 | u-boot | 2017.1 |
@@ -32,7 +32,7 @@ Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) or write
 
 - build : Output directory for all generated files. This directory contains:
 
-    | File               | Description                  |
+    | **File**             | **Description**                 |
     |------------------|----------------------------|
     | uImage             | Compiled Kernel              |
     | devicetree.dtb     | Compiled device tree         |
