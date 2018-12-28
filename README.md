@@ -24,7 +24,7 @@ Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) or write
 | **Software** | **Version** |
 |-------------------|----------------------------|
 | Ubuntu | 16.04 LTS |
-| Linux kernel | 4.6.0-xilinx-v2016.3 |
+| Linux kernel | xlnx_rebase_v4.14_2018.3 |
 | u-boot | xilinx-v2017.4 |
 | Device tree | xilinx-v2018.3 |
 | Vivado | 2018.2 |

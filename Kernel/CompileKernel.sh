@@ -10,7 +10,7 @@ make ARCH=${ARCH} menuconfig
 make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} UIMAGE_LOADADDR=0x8000 uImage
 
 # Copy kernel
-cp arch/arm/boot/uImage ../../build/uImage
+cp arch/arm/boot/uImage ${DIR_RPOJECT}/build/uImage
 
 # Change to current directory
 cd ${DIR_RPOJECT}
