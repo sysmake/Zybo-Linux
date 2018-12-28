@@ -26,7 +26,7 @@
 
 ##### Project settings ####
 export VER_VIVADO=2018.2
-export VER_KERNEL=xilinx-v2016.3
+export VER_KERNEL=xlnx_rebase_v4.14_2018.3
 export VER_UBOOT=xilinx-v2017.4
 export VER_DT=xilinx-v2018.3
 export YOCTO_BRANCH=morty
@@ -55,8 +55,9 @@ Cyan="\033[0;36m"
 # Current dir
 export DIR_RPOJECT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Export the architecture and the cross compiler
+# Export the architecture, the cross compiler and the kernel sources
 export ARCH=arm
+export KDIR=${DIR_RPOJECT}/Kernel/linux-xlnx
 export CROSS_COMPILE=${DIR_RPOJECT}/${PATH_COMPILER}-
 
 # Add u-boot to path
@@ -140,8 +141,8 @@ if [ $# -eq 1 ]
 				else
 					echo -e ${Yellow}"Create bif file..."${Reset}
 					echo "image : {" >> Boot/${ZYBO_BIF}
-					echo "        [bootloader]${DIR_RPOJECT}/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/$BOOTLOADER/Debug/${BOOTLOADER}.elf" >> Boot/${ZYBO_BIF}
-					echo "	${DIR_RPOJECT}/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/${DESIGNNAME}_wrapper_hw_platform_0/${DESIGNNAME}_wrapper.bit" >> Boot/${ZYBO_BIF}
+					echo "        [bootloader]${DIR_RPOJECT}/Vivado/$PROJECTNAME/${PROJECTNAME}.sdk/${BOOTLOADER}/Debug/${BOOTLOADER}.elf" >> Boot/${ZYBO_BIF}
+					echo "	${DIR_RPOJECT}/Vivado/${PROJECTNAME}/${PROJECTNAME}.sdk/${DESIGNNAME}_wrapper_hw_platform_0/${DESIGNNAME}_wrapper.bit" >> Boot/${ZYBO_BIF}
 					echo "	${DIR_RPOJECT}/build/u-boot.elf" >> Boot/${ZYBO_BIF}
 					echo "}" >> Boot/${ZYBO_BIF}
 				fi
@@ -163,8 +164,8 @@ if [ $# -eq 1 ]
 		elif [ $1 == "-devicetree" ]
 			then
 
-				echo -e ${Yellow}"Generate device tree..."${Reset}
-				${DIR_RPOJECT}/Kernel/linux-xlnx/scripts/dtc/dtc -I dts -O dtb -o ${DIR_RPOJECT}/build/devicetree.dtb ${DIR_RPOJECT}/Vivado/$PROJECTNAME/$PROJECTNAME.sdk/device_tree_bsp_0/${DEVICETREE}.dts
+				echo -e ${Yellow}"Generate device tree..."${Reset}}
+				${DIR_RPOJECT}/Kernel/linux-xlnx/scripts/dtc/dtc -I dts -O dtb -o ${DIR_RPOJECT}/build/devicetree.dtb ${DIR_RPOJECT}/Vivado/${PROJECTNAME}/${PROJECTNAME}.sdk/device_tree_bsp_0/${DEVICETREE}.dts
 		elif [ $1 == "-kernel" ]
 			then
 				echo -e ${Yellow}"Compile Kernel..."${Reset}

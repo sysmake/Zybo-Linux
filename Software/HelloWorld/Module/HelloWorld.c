@@ -5,7 +5,7 @@
 MODULE_LICENSE("GPL");
 MODULE_VERSION("1.0");
 MODULE_AUTHOR("Daniel Kampert");
-MODULE_DESCRIPTION("Yocto kernel module example");
+MODULE_DESCRIPTION("Kernel module example");
 
 static int __init Init(void)
 {

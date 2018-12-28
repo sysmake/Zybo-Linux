@@ -7,6 +7,6 @@ make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE}
 
 # Copy u-boot and configuration
 cp u-boot ../../build/u-boot.elf
-cp ../uEnv.txt ../../build/uEnv.txt
+cp ../uEnv.txt ${DIR_RPOJECT}/build/uEnv.txt
 
 cd ${DIR_RPOJECT}
