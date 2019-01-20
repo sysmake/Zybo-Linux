@@ -19,6 +19,8 @@ In this repository, you will find all the necessary files to compile and run a L
 
 Please check the [wiki](https://gitlab.com/Kampi/Zybo-Linux/wikis/home) or write an e-mail to <DanielKampert@kampis-elektroecke.de> if you need some more detailed information.
 
+You can find additional IP cores in my [IP repository](https://gitlab.com/Kampi/IP).
+
 ## Supported Versions
 
 | **Software** | **Version** |
