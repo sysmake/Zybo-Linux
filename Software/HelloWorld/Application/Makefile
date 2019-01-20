@@ -9,8 +9,8 @@ CFLAGS		=
 LIB_PATH	=
 LIBS		=
 
-CC		= ../../../SDK/sysroots/x86_64-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-gcc
-SYSROOT 	= ../../../SDK/sysroots/cortexa9hf-neon-poky-linux-gnueabi
+CC		= ${CROSS_COMPILE}gcc
+SYSROOT 	= ${DIR_RPOJECT}/SDK/sysroots/cortexa9hf-neon-poky-linux-gnueabi
 
 SOURCES		= $(wildcard *.c)
 BINS 		= $(SOURCES:.c=.o)
