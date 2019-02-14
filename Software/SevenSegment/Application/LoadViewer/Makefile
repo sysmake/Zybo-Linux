@@ -1,16 +1,6 @@
-EXECUTABLE	= LoadViewer
+EXECUTABLE	= main
 
-ARCH		= arm
-TYPE		= armv7-a
-CPU		= cortex-a9
-FPU		= neon
-FLOAT_ABI	= hard
-CFLAGS		=
-LIB_PATH	=
-LIBS		= pthread
-
-CC		= ${CROSS_COMPILE}gcc
-SYSROOT 	= ${DIR_RPOJECT}/SDK/sysroots/cortexa9hf-neon-poky-linux-gnueabi
+CC			= ${CROSS_COMPILE}gcc
 
 SOURCES		= $(wildcard *.c)
 BINS 		= $(SOURCES:.c=.o)
@@ -18,13 +8,10 @@ BINS 		= $(SOURCES:.c=.o)
 all: ${EXECUTABLE}
 
 ${EXECUTABLE}: ${BINS}
-	${CC} -${LIBS} -march=${TYPE} -m${ARCH} -mfpu=${FPU} -mfloat-abi=${FLOAT_ABI} -mcpu=${CPU} --sysroot=${SYSROOT} $< -o $@
+	${CC} ${CFLAGS} -march=${TYPE} -m${ARCH} -mfpu=${FPU} -mfloat-abi=${FLOAT_ABI} -mcpu=${CPU} --sysroot=${SYSROOT} $< -o $@
 
 %.o: %.c
 	${CC} ${CFLAGS} -march=${TYPE} -m${ARCH} -mfpu=${FPU} -mfloat-abi=${FLOAT_ABI} -mcpu=${CPU} --sysroot=${SYSROOT} -c $<
 
 clean:
 	rm *.o ${EXECUTABLE}
-
-
-

@@ -57,8 +57,13 @@ export DIR_RPOJECT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Export the architecture, the cross compiler and the kernel sources
 export ARCH=arm
+export TYPE=armv7-a
+export CPU=cortex-a9
+export FPU=neon
+export FLOAT_ABI=hard
 export KDIR=${DIR_RPOJECT}/Kernel/linux-xlnx
 export CROSS_COMPILE=${DIR_RPOJECT}/${PATH_COMPILER}-
+export SYSROOT=${DIR_RPOJECT}/SDK/sysroots/cortexa9hf-neon-poky-linux-gnueabi
 
 # Add u-boot to path
 export PATH=${PATH}:${DIR_RPOJECT}/u-boot/u-boot-xlnx/tools
@@ -72,10 +77,12 @@ if [ $# -eq 1 ]
 			then
 				echo -e ${Yellow}"Install packages..."${Reset}
 				sudo apt-get update
-				sudo apt-get -y install openjdk-7-jre make git-core openssh-server git autoconf automake libtool python-pip gawk chrpath texinfo
-				sudo apt-get -y install linux-source linux-kernel-headers kernel-package u-boot-tools device-tree-compiler build-essential ncurses-dev
+				sudo apt-get -y install make git-core openssh-server git autoconf automake libtool python-pip gawk chrpath texinfo python3-pip tree
+				# Uncomment if it doesn work				
+				#sudo apt-get -y install linux-source linux-kernel-headers kernel-package
+				sudo apt-get -y install u-boot-tools device-tree-compiler build-essential ncurses-dev
 				sudo apt-get -y install libncursesw5 libncurses5 libncursesw5-dev libncursesw5-dbg libncurses5-dbg libncurses5-dev libncurses5:i386
-				sudo apt-get -y install libsdl1.2-dev lib32z1 lib32ncurses5 lib32bz2-1.0 libssl-dev libgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
+				sudo apt-get -y install libsdl1.2-dev lib32z1 lib32ncurses5 libssl-dev libgtk2.0-0:i386 libxtst6:i386 gtk2-engines-murrine:i386 lib32stdc++6 libxt6:i386 
 				sudo apt-get -y install libdbus-glib-1-2:i386 libasound2:i386 libstdc++6:i386 libglib2.0-dev libgcrypt20-dev libpixman-1-dev zlib1g-dev
 				sudo apt-get -y install libgmp3-dev libmpfr-dev libx11-6 libx11-dev libmpc-dev zlibc
 
@@ -87,8 +94,7 @@ if [ $# -eq 1 ]
 				sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
 
 				echo -e ${Yellow}"Install python packages..."${Reset}
-				sudo pip install --user django==1.6
-				sudo pip install South==0.8.4
+				python3 -m pip install --user django==1.8.7
 
 				# Add run permissions to the scrips
 				sudo chmod +x Kernel/CompileKernel.sh
@@ -205,6 +211,9 @@ if [ $# -eq 1 ]
 				git clone https://github.com/Xilinx/meta-xilinx.git
 				cd meta-xilinx
 				git checkout ${YOCTO_BRANCH}
+
+				pip install --user -r ${DIR_RPOJECT}Yocto/poky/bitbake/toaster-requirements.txt 
+
 
 				cd ${DIR_RPOJECT}
 

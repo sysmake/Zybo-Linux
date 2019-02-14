@@ -1,16 +1,4 @@
-EXECUTABLE	= HelloWorld
-
-ARCH		= arm
-TYPE		= armv7-a
-CPU		= cortex-a9
-FPU		= neon
-FLOAT_ABI	= hard
-CFLAGS		=
-LIB_PATH	=
-LIBS		=
-
-CC		= ${CROSS_COMPILE}gcc
-SYSROOT 	= ${DIR_RPOJECT}/SDK/sysroots/cortexa9hf-neon-poky-linux-gnueabi
+EXECUTABLE	= main
 
 SOURCES		= $(wildcard *.c)
 BINS 		= $(SOURCES:.c=.o)
@@ -25,6 +13,3 @@ ${EXECUTABLE}: ${BINS}
 
 clean:
 	rm *.o ${EXECUTABLE}
-
-
-

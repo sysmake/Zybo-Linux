@@ -24,6 +24,8 @@ __attribute__((section("__versions"))) = {
 	{ 0x822137e2, __VMLINUX_SYMBOL_STR(arm_heavy_mb) },
 	{ 0xfa2a45e, __VMLINUX_SYMBOL_STR(__memzero) },
 	{ 0x28cc25db, __VMLINUX_SYMBOL_STR(arm_copy_from_user) },
+	{ 0x2196324, __VMLINUX_SYMBOL_STR(__aeabi_idiv) },
+	{ 0xff178f6, __VMLINUX_SYMBOL_STR(__aeabi_idivmod) },
 	{ 0x6ae5b6e8, __VMLINUX_SYMBOL_STR(device_create) },
 	{ 0x4e251c31, __VMLINUX_SYMBOL_STR(kobject_put) },
 	{ 0x27e1a049, __VMLINUX_SYMBOL_STR(printk) },
@@ -54,4 +56,4 @@ __attribute__((section(".modinfo"))) =
 MODULE_ALIAS("of:N*T*Cxlnx,AXI-Segment-1.1");
 MODULE_ALIAS("of:N*T*Cxlnx,AXI-Segment-1.1C*");
 
-MODULE_INFO(srcversion, "6281BD1168AA7FBCDAF9F2A");
+MODULE_INFO(srcversion, "8F2101D4C8DCDF33FF76643");
