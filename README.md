@@ -58,9 +58,9 @@ You can find additional IP cores in my [IP repository](https://gitlab.com/Kampi/
 
 ## History
 
-| Version   | Description                    | Date       |
+| Version   | Description                  | Date       |
 |:---------:|------------------------------|:----------:|
-| 1.0       | First release                |            |
+| 1.0       | First release                | 20.02.2019 |
 
 ## Maintainer
 
