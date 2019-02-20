@@ -60,10 +60,7 @@ You can find additional IP cores in my [IP repository](https://gitlab.com/Kampi/
 
 | Version   | Description                    | Date       |
 |:---------:|------------------------------|:----------:|
-| 1.0       | Initial release                |            |
-| 2.0       | Reworked and new release       | 08.12.2017 |
-| 2.1       | Fix some bugs with device tree | 08.03.2018 |
-| 2.2       | Add examples with working ethernet  | 05.05.2018 |
+| 1.0       | First release                |            |
 
 ## Maintainer
 
